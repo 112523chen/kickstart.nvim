@@ -601,15 +601,130 @@ require('lazy').setup({
       ---@type table<string, vim.lsp.Config>
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {
+          analyses = {
+            unusedparams = true, -- Find unused function parameters
+            -- nilness = true, -- Check for redundant or missing nil checks
+            shadow = true, -- Detect shadowed variables
+          },
+          staticcheck = true, -- Enable static analysis checks
+        },
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {
+          settings = {
+            typescript = {
+              inlayHints = {
+                -- You can set this to 'all' or 'literals' to enable more hints
+                includeInlayParameterNameHints = 'literals', -- 'none' | 'literals' | 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = false,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = false,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            typescriptreact = {
+              inlayHints = {
+                -- You can set this to 'all' or 'literals' to enable more hints
+                includeInlayParameterNameHints = 'literals', -- 'none' | 'literals' | 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = false,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = false,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
+        biome = { filetypes = { 'typescriptreact' } },
+        prettierd = { filetypes = { 'typescriptreact' } },
+        tailwindcss = {},
+        bacon = {},
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pyflakes = { enabled = false },
+        --         pycodestyle = { enabled = false },
+        --         autopep8 = { enabled = false },
+        --         yapf = { enabled = false },
+        --         mccabe = { enabled = false },
+        --         pylsp_mypy = { enabled = false },
+        --         pylsp_black = { enabled = false },
+        --         pylsp_isort = { enabled = false },
+        --       },
+        --     },
+        --   },
+        -- },
+        ruff = {
+          init_options = {
+            settings = {
+              configurationPreference = 'filesystemFirst',
+              codeAction = {
+                fixViolation = {
+                  enable = true,
+                },
+              },
+              lint = {
+                preview = true,
+              },
+              format = {
+                preview = true,
+              },
+              disableRuleComment = {
+                enable = false,
+              },
+            },
+          },
+        },
+        ty = {
+          settings = {
+            ty = {
+              configuration = {
+                rules = {
+                  -- ['unresolved-reference'] = 'warn',
+                },
+              },
+            },
+          },
+        },
+        bashls = {},
+        yamlls = {
+          settings = {
+            yaml = {
+              schemas = {
+                ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
+                ['https://json.schemastore.org/github-action.json'] = '/action.{yml,yaml}',
+                ['https://json.schemastore.org/docker-compose.json'] = 'docker-compose*.{yml,yaml}',
+              },
+              validate = true,
+              completion = true,
+              hover = true,
+            },
+          },
+        },
+        docker_compose_language_service = { filetypes = { 'yaml' } },
+        dockerls = { filetypes = { 'Dockerfile' } },
+        sqls = {},
+        sqlfmt = {},
+        sqruff = {},
+        buf = {},
+        taplo = {},
+        mdx_analyzer = {
+          filetypes = { 'markdown.mdx', 'mdx' },
+        },
+        regal = {},
+        jinja_lsp = { filetypes = { 'sql' } },
 
         stylua = {}, -- Used to format Lua code
 
@@ -700,7 +815,9 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
