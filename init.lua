@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -703,9 +703,11 @@ require('lazy').setup({
           settings = {
             yaml = {
               schemas = {
-                ['https://json.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
-                ['https://json.schemastore.org/github-action.json'] = '/action.{yml,yaml}',
-                ['https://json.schemastore.org/docker-compose.json'] = 'docker-compose*.{yml,yaml}',
+                ['https://www.schemastore.org/github-workflow.json'] = '/.github/workflows/*',
+                ['https://www.schemastore.org/github-action.json'] = '/action.{yml,yaml}',
+                ['https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json'] = 'docker-compose*.{yml,yaml}',
+                ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/latest/dbt_project-latest.json'] = 'dbt_project.yml',
+                ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/latest/dbt_yml_files-latest.json'] = 'schema*.{yml,yaml}',
               },
               validate = true,
               completion = true,
@@ -771,6 +773,17 @@ require('lazy').setup({
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      vim.lsp.config['dbt'] = {
+        cmd = { 'dbt-language-server' }, -- https://github.com/j-clemons/dbt-language-server
+        filetypes = { 'sql', 'yaml' },
+        root_dir = require('lspconfig').util.root_pattern 'dbt_project.yml',
+      }
+      vim.lsp.enable 'dbt'
+      -- https://github.com/theodotdot/dbt-language-server/tree/feat/jinja-parsing
+      -- https://github.com/j-clemons/nvim-config/blob/main/lua/j-clemons/lazy/lsp.lua
+      -- https://github.com/kylejbrk/zed-dbt
+      -- https://github.com/gbakes/dotfiles/blob/main/nvim/lua/plugins/lsp.lua
 
       for name, server in pairs(servers) do
         vim.lsp.config(name, server)
@@ -1057,7 +1070,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
