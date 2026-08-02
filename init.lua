@@ -608,9 +608,25 @@ require('lazy').setup({
             shadow = true, -- Detect shadowed variables
           },
           staticcheck = true, -- Enable static analysis checks
+          settings = { formatting = {
+            gofumpt = true,
+          } },
         },
         -- pyright = {},
-        rust_analyzer = {},
+        rust_analyzer = {
+          settings = {
+            cargo = { features = 'all' },
+            check = {
+              command = 'clippy',
+            },
+            inlayHints = {
+              enable = true,
+            },
+            assist = {
+              importGranularity = 'module',
+            },
+          },
+        },
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
