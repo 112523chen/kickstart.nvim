@@ -726,6 +726,7 @@ require('lazy').setup({
                 ['https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json'] = 'docker-compose*.{yml,yaml}',
                 ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/latest/dbt_project-latest.json'] = 'dbt_project.yml',
                 ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/latest/dbt_yml_files-latest.json'] = 'schema*.{yml,yaml}',
+                ['https://github.com/bitol-io/open-data-contract-standard/raw/refs/heads/main/schema/odcs-json-schema-v3.1.0.json'] = '*contract.{yml,yaml}',
               },
               validate = true,
               completion = true,
