@@ -662,9 +662,11 @@ require('lazy').setup({
             },
           },
         },
+        oxfmt = {},
+        oxlint = {},
         biome = { filetypes = { 'typescriptreact' } },
         prettierd = { filetypes = { 'typescriptreact' } },
-        tailwindcss = {},
+        tailwindcss = { filetypes = { 'css' } },
         bacon = {},
         -- pylsp = {
         --   settings = {
@@ -743,6 +745,7 @@ require('lazy').setup({
         },
         regal = {},
         jinja_lsp = { filetypes = { 'sql' } },
+        htmx = {},
 
         stylua = {}, -- Used to format Lua code
 
