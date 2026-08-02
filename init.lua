@@ -736,8 +736,8 @@ require('lazy').setup({
         },
         docker_compose_language_service = { filetypes = { 'yaml' } },
         dockerls = { filetypes = { 'Dockerfile' } },
-        sqls = {},
-        sqlfmt = {},
+        sqls = { filetypes = { 'sql' } },
+        sqlfmt = { filetypes = { 'sql' } },
         sqruff = {},
         buf = {},
         taplo = {},
@@ -805,6 +805,7 @@ require('lazy').setup({
         root_dir = require('lspconfig').util.root_pattern 'dbt_project.yml',
       }
       vim.lsp.enable 'dbt'
+
       -- https://github.com/theodotdot/dbt-language-server/tree/feat/jinja-parsing
       -- https://github.com/j-clemons/nvim-config/blob/main/lua/j-clemons/lazy/lsp.lua
       -- https://github.com/kylejbrk/zed-dbt
@@ -836,8 +837,9 @@ require('lazy').setup({
       format_on_save = function(bufnr)
         -- You can specify filetypes to autoformat on save here:
         local enabled_filetypes = {
-          -- lua = true,
-          -- python = true,
+          lua = true,
+          rust = true,
+          python = true,
         }
         if enabled_filetypes[vim.bo[bufnr].filetype] then
           return { timeout_ms = 500 }
@@ -850,7 +852,7 @@ require('lazy').setup({
       },
       -- You can also specify external formatters in here.
       formatters_by_ft = {
-        -- rust = { 'rustfmt' },
+        rust = { 'rustfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -858,6 +860,7 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        sql = { 'sqlfmt' },
       },
     },
   },
